@@ -19,4 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['auth']], function() {
+    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::post('/addproduct', 'product\ProductController@store')->name('product\product.store');
+    Route::get('/product', 'product\ProductController@index')->name('product\product.index');
+    Route::post('/updateproduct','product\ProductController@update')->name('product\product.update');
+    Route::get('/deleteprod/{id}','product\ProductController@destroy')->name('product\product.destroy');
+  
+    Route::delete('/productsDeleteAll', 'product\ProductController@deleteAll')->name('product\product.deleteAll');
 
+});
